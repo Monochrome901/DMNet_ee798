@@ -130,9 +130,9 @@ Place the images and annotations into their respective folders (`images/` and `a
 
 ## Pretrained Models
 
-- **MCNN Pretrained Weights**: [Download here](#)
-- **YOLOv5 Pretrained Weights**: [Download here](#)
-- **Training Notebook**: [Available on Kaggle](#)
+- **MCNN Pretrained Weights**: [Download here](https://drive.google.com/file/d/1J--qH8_djZIsX3YUz9IkysWsfxzKXEqI/view?usp=sharing)
+- **YOLOv5 Pretrained Weights**: [Download here](https://drive.google.com/file/d/1VEYrmYIZTTnpmPiRvY-Zbz_jTzKr0lh1/view?usp=sharing)
+- **Training Notebook**: [Available on Kaggle](https://www.kaggle.com/code/monochrome902/visdrone-training)
 
 ---
 
