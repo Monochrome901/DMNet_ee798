@@ -95,27 +95,29 @@ Place the images and annotations into their respective folders (`images/` and `a
    Object_detection_fusion/
    ├── Dataset/
    │   ├── Global/
-   │   │   ├── images/
-   │   │   └── annotations/
+   |   |   |- val  
+   │   │   |   |── images/
+   │   │   |   |── annotations/
    │   └── Density/
-   │       ├── images/
-   │       └── annotations/
+   │   |   |- val  
+   │   │   |   |── images/
+   │   │   |   |── annotations/
    ```
 
-2. Run the object detection model using the following script:
-
-   ```bash
-   python predictions.py
-   ```
-
-   - **Pretrained weights**: You can find the pretrained YOLOv5 weights [here](#) and the training notebook [here](#).
+### Step 2: Object Detection
+1. upload the cropped dataset on the kaggle notebook, as well as the pretrained weights
+2. run the notebook.
+3. you may skip the training step and just directly to the next cell which makes use of pretrained weights
+4. download the output_prediction.zip (corresponds to annotations for Global/original images) and output_prediction_1.zip (corresponds to annotations for Density/cropped images) from the working directory of kaggle
+5. Place the annotations obtained in their respective folder as per the above diagram
+   - **Pretrained weights**: You can find the pretrained YOLOv5 weights and the training notebook below.
 
 ### Step 3: Fusion and Analysis
 
 1. To combine detection results from the cropped images and the original images, run:
 
    ```bash
-   python fusion_detection_result_official.py
+   python .\fusion_detection_result_official.py --root_dir dataset --mode val
    ```
 
 2. To evaluate the model’s performance, run:
@@ -124,7 +126,7 @@ Place the images and annotations into their respective folders (`images/` and `a
    python analysis.py
    ```
 
-   - This will provide scores for various detection metrics.
+   - This will provide a sample output 
 
 ---
 
