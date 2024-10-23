@@ -11,9 +11,10 @@ This project addresses object detection challenges in high-resolution aerial ima
 1. [Installation](#installation)
 2. [Dataset Setup](#dataset-setup)
 3. [Running the Project](#running-the-project)
-    - [Step 1: Image Cropping](#step-1-image-cropping)
-    - [Step 2: Object Detection](#step-2-object-detection)
-    - [Step 3: Fusion and Analysis](#step-3-fusion-and-analysis)
+    - [Image Cropping](#step-1-image-cropping)
+    - [Object Detection](#step-3-object-detection)
+    - [Fusion and Analysis](#step-4-fusion-and-analysis)
+    - [Results/Analysis](#step-5-analysis/results)
 4. [Pretrained Models](#pretrained-models)
 5. [References](#references)
 
@@ -78,6 +79,11 @@ Place the images and annotations into their respective folders (`images/` and `a
    ```
 
    - **Output**: A new folder containing cropped images and corresponding annotations.
+   - **What actually happened?** -
+    1. Make the annotations file as per the model requirements (removing last two columns)
+    2. Creating ground truth density maps with Generate_density_map_official.py (in .npy format)
+    3. Predicting density maps using model.py (in .npy format)
+    4. Creating cropped images with desnity_slide_window_official.py (stores them in output folder)
 
 3. To analyze the cropped images, use the script:
 
@@ -86,47 +92,51 @@ Place the images and annotations into their respective folders (`images/` and `a
    ```
 
    - This will generate a histogram comparing the size distribution of the image crops.
+### Dataset Setup
 
-### Step 2: Object Detection
+Organize the cropped dataset and the original dataset inside the fusion_detection folder:
 
-1. Organize the cropped dataset for object detection:
+```
+fusion_detection/
+├── Dataset/
+│   ├── Global/
+|   |   |- val  
+│   │   |   |── images/
+│   │   |   |── ground_annotations/
+│   └── Density/
+│   |   |- val  
+│   │   |   |── images/
+│   │   |   |── ground_annotations/
+```
 
-   ```
-   Object_detection_fusion/
-   ├── Dataset/
-   │   ├── Global/
-   |   |   |- val  
-   │   │   |   |── images/
-   │   │   |   |── annotations/
-   │   └── Density/
-   │   |   |- val  
-   │   │   |   |── images/
-   │   │   |   |── annotations/
-   ```
+### Step 2: Annotations correction
+```bash
+clean_annotation.py
+```
+This will make some minor changes in the annotations of the cropped images.
 
-### Step 2: Object Detection
-1. upload the cropped dataset on the kaggle notebook, as well as the pretrained weights
-2. run the notebook.
-3. you may skip the training step and just directly to the next cell which makes use of pretrained weights
-4. download the output_prediction.zip (corresponds to annotations for Global/original images) and output_prediction_1.zip (corresponds to annotations for Density/cropped images) from the working directory of kaggle
-5. Place the annotations obtained in their respective folder as per the above diagram
-   - **Pretrained weights**: You can find the pretrained YOLOv5 weights and the training notebook below.
+### Step 3: Object Detection
+```bash
+python model.py .\dataset\Global\val\images\ .\dataset\Global\val\ .\best.pt
+python model.py .\dataset\Density\val\images\ .\dataset\Density\val\ .\best.pt
+```
+This will create the folder annotations inside Density and Global with predicted annotations
 
-### Step 3: Fusion and Analysis
-
-1. To combine detection results from the cropped images and the original images, run:
-
-   ```bash
-   python .\fusion_detection_result_official.py --root_dir dataset --mode val
-   ```
-
-2. To evaluate the model’s performance, run:
-
-   ```bash
-   python analysis.py
-   ```
-
-   - This will provide a sample output 
+### Step 4: Fusion and Analysis
+```bash
+python .\fusion_detection_result_official.py --root_dir dataset --mode val
+```
+Combines detection results from the cropped images and the original images
+To evaluate the model’s performance, run:
+### Step 5: Analysis/Results
+```bash
+python analysis.py
+```
+This will provide sample outputs and store them in the output folder
+```bash
+python analysis2.py
+```
+returns the mAP scroe
 
 ---
 
