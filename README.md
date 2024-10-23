@@ -78,7 +78,7 @@ Place the images and annotations into their respective folders (`images/` and `a
    python run_all.py
    ```
 
-   - **Output**: A new folder containing cropped images and corresponding annotations.
+   - **Output**: A new folder containing cropped images and corresponding annotations. (Most of the code in this part is taken from the given references)
    - **What actually happened?** -
     1. Make the annotations file as per the model requirements (removing last two columns)
     2. Creating ground truth density maps with Generate_density_map_official.py (in .npy format)
@@ -108,7 +108,7 @@ fusion_detection/
 │   │   |   |── images/
 │   │   |   |── ground_annotations/
 ```
-
+## As I could not get the mmdetection to run, Almost all code from this point onwards has been implemented from scratch
 ### Step 2: Annotations correction
 ```bash
 clean_annotation.py
