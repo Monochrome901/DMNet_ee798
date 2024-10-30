@@ -26,7 +26,7 @@ def main():
     
     # Step 3: Run model.py
     print("Running model.py...")
-    run_script("python model2.py")
+    run_script("python model.py")
     
     # Step 4: Run density_slide_window_official.py
     print("Running density_slide_window_official.py...")
